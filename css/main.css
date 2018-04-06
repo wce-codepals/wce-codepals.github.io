@@ -1,0 +1,142 @@
+body{
+    margin:0;
+    height:100%;
+    background:black;
+}
+#window{
+  font-family: monospace;
+}
+
+#menubar{
+  background:-webkit-gradient(linear, left top, left bottom, from(#dedede), to(#c0c0c0));
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: black;
+  position:fixed;
+  z-index:1000;
+  width:100%;
+  height:3%;
+}
+
+#icon-tray{
+  position: relative;
+  width: 5%;
+  float: left;
+  margin-left: 1%;
+}
+
+.button {
+  display: inline-block;
+  text-align: center;
+  width: 10px;
+  height: 10px;
+  border: 0.5px solid;
+  border-radius: 100px;
+  vertical-align: middle;
+  margin: 3px 2px 3px 0;
+}
+
+#close{
+  background: #e25544;
+  border-color: #d84b3a;
+}
+
+#min {
+  background: #f5b640;
+  border-color: #e0a12b;
+}
+#max {
+  background: #7cb058;
+  border-color: #6fa44b;
+}
+.title {
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-align: center;
+  vertical-align: middle;
+  top: 0.5px;
+}
+
+.prompt {
+  font-size: 98%;
+}
+
+.user {
+  color: #ea7e7d;
+}
+
+.at {
+  color: #e8d880;
+}
+
+.path {
+  color: #7ecdcb;
+}
+
+.caret {
+  color: #50cd70;
+}
+
+.message {
+  position: relative;
+  color: green;
+  font-family: "Source Code Pro", monospace;
+  margin: auto;
+  padding: 1.5vh 0 0;
+  z-index: 999;
+}
+
+.message span {
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: 0.045em;
+  margin-bottom: 1em;
+}
+
+.message span a {
+  font-family: "Source Code Pro", monospace;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.75);
+}
+
+.message form input {
+  background: transparent;
+  border: none;
+  outline: none;
+  caret-color: #50cd70;
+  width:90%;
+}
+
+
+
+
+a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+a:hover {
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.9);
+}
+
+
+#terminal{
+  padding:1%;
+  padding-top:2%;
+  padding-bottom:0;
+  background-color: rgba(0,0,0,1);
+  color: green;
+  min-height: 400px;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
+  height:96%;
+  overflow-y:scroll;
+}
+
+input{
+    color: green;
+}

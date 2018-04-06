@@ -1,12 +1,30 @@
-<!DOCTYPE html>
 <html>
-<head>
-	<title>wce-codepals</title>
-	<link rel="stylesheet" type="text/css" href="source/css/main.css">
-</head>
-<body>
-<span>&gt;WCE-CODEPALS....</span>
-</br>
-<span>&gt;coming soon....</span>
-</body>
+    <head>
+        <title>wce@codepals:~</title>
+        <link rel="stylesheet" type="text/css" href="./css/main.css">
+    </head>
+    <body>
+        <div id="window">
+            <div id="menubar">
+                <div id="icon-tray">
+                <a id="close" class="button" href="#"></a>
+                <a id="min" class="button" href="#"></a>
+                <a id="max" class="button" href="#"></a>
+                </div>
+                <span class="title">wce@codepals:~</span>
+            </div>
+            <div id="terminal" class="message">
+                <span class='prompt'><span class='user'>root</span><span class="at">@</span><span class="path">~/</span>><span class="caret">$</span></span>&nbsp;
+                <span class="typed">"Oops!"<br/></span>
+                <form id="input_command">
+                <span class='prompt'><span class='user'>root</span><span class="at">@</span><span class="path">~/</span>><span class="caret">$</span></span>&nbsp;
+                 <span class="typed"><input type="text" name="command"></input><br/></span>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
+    <script src="https://github.com/RobertWHurst/KeyboardJS/blob/master/dist/keyboard.min.js"></script>
+    <script src="./js/main.js"></script>
 </html>
