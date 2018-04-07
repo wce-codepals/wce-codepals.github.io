@@ -50,7 +50,7 @@
             if(commands.hasOwnProperty(command)){
                 commands[command]['action']();
             }else{
-                let textToPrint = command+': command not found';
+                let textToPrint = command+': command not found - try \'help\'';
                 typeLine(textToPrint,false,false,);
             }
         }
