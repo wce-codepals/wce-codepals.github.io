@@ -1,31 +1,114 @@
+<!doctype html>
 <html>
     <head>
         <title>wce@codepals:~</title>
-        <link rel="stylesheet" type="text/css" href="./css/main.css">
+        <link rel='stylesheet' type='text/css' href='./css/main.css'>
     </head>
-    <body onload="">
-        <div id="window">
-            <div id="menubar">
-                <div id="icon-tray">
-                <a id="close" class="button" href="#"></a>
-                <a id="min" class="button" href="#"></a>
-                <a id="max" class="button" href="#"></a>
+    <body onload=''>
+        <div id='window'>
+            <div id='menubar'>
+                <div id='icon-tray'>
+                <a id='close' class='button' href='#'></a>
+                <a id='min' class='button' href='#'></a>
+                <a id='max' class='button' href='#'></a>
                 </div>
-                <span class="title">wce@codepals:~</span>
+                <span class='title'>wce@codepals:~</span>
             </div>
-            <div id="terminal" class="message">
-                <span class='prompt'><span class='user'>root</span><span class="at">@</span><span class="path">~/</span>><span class="caret">$</span></span>&nbsp;
-                <span class="typed">"Oops!"<br/></span>
-                <form id="input_command">
-                <span class='prompt'><span class='user'>root</span><span class="at">@</span><span class="path">~/</span>><span class="caret">$</span></span>&nbsp;
-                 <span class="typed"><input type="text" name="command"></input><br/></span>
-                </form>
+            <div id='terminal' class='message'>
+                <span id='line-input' class='typed'><span class='prompt'><span class='user'>root</span><span class='at'>@</span><span class='path'>~/</span>><span class='caret'>$</span></span>&nbsp;<span class='command'><input type='text' id='command' name='command' autocomplete='off'></input></span><br/></span>
             </div>
         </div>
     </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js"></script>
-    <script src="./js/main.js"></script>
-    <script>       
+    <script src='./js/jquery.js'></script>
+    <script src='./js/typed.min.js'></script>
+    <script src='./js/main.js'></script>
+    <script>
+        'use strict;'
+        let typed;
+        let linesCount=0;
+        let commands = {
+            'help':{
+                'description':'lists all the commands available',
+                'action':function(){
+                    let textToPrint = '';
+                    for(command in commands){
+                        textToPrint+='<br>'+command+' - '+commands[command]['description'];
+                    }
+                    typeLine(textToPrint,false,false,);
+                },
+            },
+            'introduction':{
+                'description':'gives introduction about WCE Codepals',
+                'action':function(){
+                    let textToPrint = 'WCE Codepals is an Initiative for Collaborative Learning amongst students of Walchand College of Engineering, Sangli.';
+                    typeLine(textToPrint,false,false,);
+                },
+            }
+        }
+        
+        function handleCommand(command){
+            if(commands.hasOwnProperty(command)){
+                commands[command]['action']();
+            }else{
+                let textToPrint = command+': command not found';
+                typeLine(textToPrint,false,false,);
+            }
+        }
+        
+        function prettyLog(str) {
+          console.log('%c ' + str, 'color: green; font-weight: bold;');
+        }
+        
+        $(document).ready(function() {           
+              typeLine('Welcome to WCE Codepals.');
+        });
+        $("#command").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                let command = $("#command")[0].value;
+                typeLine(command,true);
+                handleCommand(command);
+            }
+        }); 
+        function typeLine(command,isFromInput=false,showPropmt=true,user='root',path='~/',lineId=linesCount+1){
+            let defer = $.Deferred();
+            $('#line-input').hide();
+            
+            if($("#line-"+lineId).length==0){
+                createLine(lineId,getPrompt(user,path,showPropmt));
+            }
+                
+            if(isFromInput){
+                $("#line-"+lineId+" .command")[0].innerHTML=command;
+                $("#command")[0].value='';
+                $('#line-input').show();
+                return defer;
+            }else{
+                typed = new Typed("#line-"+lineId+" .command", {
+                    strings:[command],
+                    typeSpeed: 0,
+                    smartBackspace: false,
+                    startDelay: 1000,
+                    loop: false,
+                    showCursor:false,
+                    onComplete:function(){$('#line-input').show();}
+                });
+                return defer;
+            }
+            
+        }
+        
+        
+        function getPrompt(user='root',path='~/',showPropmt=true){
+            if(showPropmt){
+            return "<span class='prompt'><span class='user'>"+user+"</span><span class='at'>@</span><span class='path'>"+path+"</span>><span class='caret'>$</span></span>&nbsp;";
+            }else{
+                return "";
+            }
+        }
+        
+        function createLine(lineId,prompt){
+            linesCount+=1;
+            $("<span id='line-"+lineId+"' class='typed'>"+prompt+"<span class='command'></span><br></span>").insertBefore("#line-input");
+        }
     </script>
 </html>

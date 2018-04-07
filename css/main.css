@@ -3,6 +3,23 @@ body{
     height:100%;
     background:black;
 }
+
+
+.blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
 #window{
   font-family: monospace;
 }
@@ -100,11 +117,11 @@ body{
   border-bottom: 1px dotted rgba(255, 255, 255, 0.75);
 }
 
-.message form input {
+input {
   background: transparent;
   border: none;
   outline: none;
-  caret-color: #50cd70;
+  caret-color: green;
   width:90%;
 }
 
@@ -127,14 +144,12 @@ a:hover {
   padding-bottom:0;
   background-color: rgba(0,0,0,1);
   color: green;
-  min-height: 400px;
   font-size: 14px;
   font-style: normal;
   font-variant: normal;
   font-weight: 400;
   line-height: 20px;
   height:96%;
-  overflow-y:scroll;
 }
 
 input{
