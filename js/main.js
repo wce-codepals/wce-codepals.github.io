@@ -42,7 +42,7 @@ function prettyLog(str) {
 }
 
 $(document).ready(function() {           
-      typeLine('Welcome to WCE Codepals. <br> Work is in Progress. Please drop your suggestions at wcecodepals@gmail.com. <br> Wait I don\'t know, what is this? Aha!! Seek help, terminal is here.');
+      typeLine('Welcome to WCE Codepals. <br> Work is in Progress. Please drop your suggestions at wcecodepals@gmail.com. <br> Wait I don\'t understand, what is this? Aha!! Seek help, terminal is here.');
 });
 $("#command").on('keyup', function (e) {
     if (e.keyCode == 13) {
