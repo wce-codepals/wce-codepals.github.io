@@ -18,7 +18,7 @@ let commands = {
         },
     },
     'introduction':{
-        'description':'gives introduction about WCE Codepals',
+        'description':'prints introduction about WCE Codepals',
         'action':function(){
             let textToPrint = 'WCE Codepals is an Initiative for Collaborative Learning amongst students of Walchand College of Engineering, Sangli. <br> With this initiative we\'re launching Codechef Campus Chapter and do many other cool things.';
             typeLine(textToPrint,false,false,);
@@ -30,22 +30,16 @@ let commands = {
             console.log('clear called');
             deleteAllLines();
         }
-    },
-    'cat':{
-        'description':'clears screen',
-        'action':function(){
-            console.log('clear called');
-            deleteAllLines();
-        }
     }
 }
 
 function handleCommand(command){
     commandsHistory.push(command);
     currentCommandIndexInHistory=commandsHistory.length;
-    console.log(currentCommandIndexInHistory);
-    if(commands.hasOwnProperty(command)){
-        commands[command]['action']();
+
+    
+    if(commands.hasOwnProperty(command.split(' ')[0])){
+        commands[command]['action'](command);
     }else{
         let textToPrint = command+': command not found - try \'help\'';
         typeLine(textToPrint,false,false,);
