@@ -19,29 +19,51 @@ let commands = {
     },
     'introduction':{
         'description':'prints introduction about WCE Codepals',
-        'action':function(){
+        'action':function(options){
             let textToPrint = 'WCE Codepals is an Initiative for Collaborative Learning amongst students of Walchand College of Engineering, Sangli. <br> With this initiative we\'re launching Codechef Campus Chapter and do many other cool things.';
             typeLine(textToPrint,false,false,);
         },
     },
     'clear':{
         'description':'clears screen',
-        'action':function(){
-            console.log('clear called');
+        'action':function(options){
             deleteAllLines();
+        }
+    },
+    'roadmap':{
+        'options':{
+        },
+        'description':'prints details about roadmaps designed, <br>options are <br> &nbsp;&nbsp;[--list] prints list of all roadmaps <br> [--roadmap_name] prints detail about individual roadmap',
+        'action':function(options){
+            let textToPrint;
+            if(options.length==0){
+                textToPrint = 'please provide correct option, e.g \'roadmap --list\', prints list of all roadmaps. or else try \'help\'';
+                typeLine(textToPrint,false,false,);
+            }else if(options.length==1){
+                switch(options[0]){
+                    case '--list': textToPrint = 'Following are the advised and followed Roadmaps by WCE Codepals.<br>                <table><tr><td>--sport_prog</td><td>Sport Programming</td></tr><tr><td>--web_dev</td><td>Web Development</td></tr><tr><td>--mobile_dev </td><td> Mobile Development</td></tr><tr><td>--desktop_dev </td><td> Desktop Development</td></tr><tr><td>--system_prog </td><td> System Programming</td></tr><tr><td>--net_sec </td><td> Networking and Security</td></tr><tr><td>--iot_embedded</td><td> IOT and Embedded Systems</td></tr><tr><td>--ai_ml </td><td> Artificial Intelligence and Machine Learning</td></tr></table>';
+                    typeLine(textToPrint,false,false,);
+                    break;
+                    default: textToPrint = 'roadmap: invalid option '+options[0]; typeLine(textToPrint,false,false,);
+                }
+            }
         }
     }
 }
 
-function handleCommand(command){
-    commandsHistory.push(command);
-    currentCommandIndexInHistory=commandsHistory.length;
+function handleCommand(commandText){
 
+    commandsHistory.push(commandText);
+    currentCommandIndexInHistory=commandsHistory.length;
     
-    if(commands.hasOwnProperty(command.split(' ')[0])){
-        commands[command]['action'](command);
+    let commandTextArray = commandText.split(' ');
+    let command = commandTextArray[0];
+    let options = commandTextArray.slice(1);
+    
+    if(commands.hasOwnProperty(command)){
+        commands[command]['action'](options);
     }else{
-        let textToPrint = command+': command not found - try \'help\'';
+        let textToPrint = command+': command not found - try `help`';
         typeLine(textToPrint,false,false,);
     }
 }
@@ -53,6 +75,7 @@ function prettyLog(str) {
 $(document).ready(function() {           
       typeLine('Welcome to WCE Codepals. <br> Work is in Progress. Please drop your suggestions at wcecodepals@gmail.com. <br> Wait I don\'t understand, what is this? Aha!! Seek help, terminal is here.');
 });
+
 $("#command").on('keyup', function (e) {
     if (e.keyCode == 13) {
         let command = $("#command")[0].value;
@@ -106,6 +129,7 @@ function typeLine(command,isFromInput=false,showPropmt=true,user='root',path='~/
         $("#line-"+lineId+" .command")[0].innerHTML=command;
         $("#command")[0].value='';
         $('#line-input').show();
+        $("#command")[0].focus();
         return defer;
     }else{
         typed = new Typed("#line-"+lineId+" .command", {
@@ -115,7 +139,7 @@ function typeLine(command,isFromInput=false,showPropmt=true,user='root',path='~/
             startDelay: 1000,
             loop: false,
             showCursor:false,
-            onComplete:function(){$('#line-input').show();}
+            onComplete:function(){$('#line-input').show(); $("#command")[0].focus();}
         });
         return defer;
     }
