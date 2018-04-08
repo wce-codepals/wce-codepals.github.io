@@ -2,6 +2,10 @@
 let typed;
 let linesCount=0;
 let commandsHistory = [];
+let currentCommandIndexInHistory = -1;
+let fileSystem = [
+    
+];
 let commands = {
     'help':{
         'description':'lists all the commands available',
@@ -23,12 +27,23 @@ let commands = {
     'clear':{
         'description':'clears screen',
         'action':function(){
+            console.log('clear called');
+            deleteAllLines();
+        }
+    },
+    'cat':{
+        'description':'clears screen',
+        'action':function(){
+            console.log('clear called');
+            deleteAllLines();
         }
     }
 }
 
 function handleCommand(command){
     commandsHistory.push(command);
+    currentCommandIndexInHistory=commandsHistory.length;
+    console.log(currentCommandIndexInHistory);
     if(commands.hasOwnProperty(command)){
         commands[command]['action']();
     }else{
@@ -49,8 +64,42 @@ $("#command").on('keyup', function (e) {
         let command = $("#command")[0].value;
         typeLine(command,true);
         handleCommand(command);
+    }else if(e.keyCode == 38){   
+        
+        if(currentCommandIndexInHistory-1>-1 && currentCommandIndexInHistory<=commandsHistory.length){
+            currentCommandIndexInHistory-=1;    
+            $("#command")[0].value = commandsHistory[currentCommandIndexInHistory];
+            
+        }else{
+             $("#command")[0].value =  $("#command")[0].value;
+        }
+        
+    }else if(e.keyCode == 40){    
+        if(currentCommandIndexInHistory>-1 && currentCommandIndexInHistory+1<commandsHistory.length){        
+            currentCommandIndexInHistory+=1;
+            $("#command")[0].value = commandsHistory[currentCommandIndexInHistory];            
+        }else{
+             $("#command")[0].value =  '';
+        }  
     }
 }); 
+
+
+
+function deleteLine(lineId){
+    if($("#line-"+lineId).length){
+        $("#line-"+lineId)[0].remove();
+        linesCount--;
+    }
+    
+}
+
+function deleteAllLines(){
+    for(let id=linesCount;id>0;id--){
+        deleteLine(id);
+    }
+}
+
 function typeLine(command,isFromInput=false,showPropmt=true,user='root',path='~/',lineId=linesCount+1){
     let defer = $.Deferred();
     $('#line-input').hide();
